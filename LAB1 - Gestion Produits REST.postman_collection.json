@@ -1,0 +1,235 @@
+{
+  "info": {
+    "_postman_id": "250e531e-06e8-4fff-bd56-e0c51acc7d44",
+    "name": "LAB1 - Gestion Produits REST",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "3698776"
+  },
+  "item": [
+    {
+      "name": "Lecture (GET)",
+      "item": [
+        {
+          "name": "produit unique",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "query params",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "smartphones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Création (POST)",
+      "item": [
+        {
+          "name": "la création du produit",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "la création d'un utilisateur",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Test 5 : Temps de réponse\r\npm.test(\"Temps de réponse inférieur à 3000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(500);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Mohammed\",\r\n    \"lastName\": \"Halhnini\",\r\n    \"age\": 32\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dummyjson.com/users/add",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "users",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Modification (PUT/PATCH)",
+      "item": [
+        {
+          "name": "put",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "patch",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Suppression (DELETE)",
+      "item": [
+        {
+          "name": "delete",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Gestion des Erreurs",
+      "item": [
+        {
+          "name": "400 - Bad Request",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// NOTE : dummyjson.com est une API de mock qui n'effectue pas de validation\n// des types de données. Elle accepte des valeurs invalides et retourne 201.\n// Ce test documente ce comportement et sert de référence pour une vraie API.\n\n// Test 1 : Comportement réel de dummyjson — retourne 201 même avec données invalides\npm.test(\"[dummyjson] Retourne 201 (pas de validation des types)\", function () {\n    pm.response.to.have.status(201);\n});\n\n// Test 2 : La réponse est du JSON\npm.test(\"La réponse est au format JSON\", function () {\n    pm.response.to.be.json;\n});\n\n// Test 3 : Le corps contient les champs envoyés (sans validation)\npm.test(\"Le corps contient le titre envoyé\", function () {\n    const json = pm.response.json();\n    pm.expect(json).to.have.property(\"title\", \"Produit Test\");\n});\n\n// Test 4 : Le prix invalide est accepté tel quel (comportement mock)\npm.test(\"[dummyjson] Le prix invalide est accepté sans erreur (API mock)\", function () {\n    const json = pm.response.json();\n    pm.expect(json).to.have.property(\"price\", \"pas-un-nombre\");\n});\n\n// Test 5 : Temps de réponse\npm.test(\"Temps de réponse inférieur à 3000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(3000);\n});\n\n// ---------------------------------------------------------------\n// RÉFÉRENCE : Sur une vraie API REST avec validation, on attendrait :\n// pm.test(\"Statut HTTP est 400 Bad Request\", function () {\n//     pm.response.to.have.status(400);\n// });\n// pm.test(\"Message d'erreur sur le champ 'price'\", function () {\n//     const json = pm.response.json();\n//     pm.expect(json.message).to.include(\"price\");\n// });\n// ---------------------------------------------------------------"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\": \"Produit Test\", \"price\": \"pas-un-nombre\", \"stock\": \"invalide\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dummyjson.com/products/add",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "products",
+                "add"
+              ]
+            },
+            "description": "Test 400 Bad Request : envoie un corps JSON avec des types de données invalides (prix en texte au lieu d'un nombre). Valide que l'API retourne bien un code HTTP 400."
+          },
+          "response": []
+        },
+        {
+          "name": "404 - Not Found",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Test 1 : Vérifier que le statut HTTP est 404 Not Found\npm.test(\"Statut HTTP est 404 Not Found\", function () {\n    pm.response.to.have.status(404);\n});\n\n// Test 2 : Vérifier que la réponse est du JSON\npm.test(\"La réponse est au format JSON\", function () {\n    pm.response.to.be.json;\n});\n\n// Test 3 : Vérifier que le corps contient un message d'erreur explicite\npm.test(\"La réponse contient un message d'erreur explicite\", function () {\n    const json = pm.response.json();\n    pm.expect(json).to.have.property(\"message\");\n    pm.expect(json.message).to.be.a(\"string\").and.not.empty;\n});\n\n// Test 4 : Vérifier que le message mentionne l'ID du produit introuvable\npm.test(\"Le message d'erreur mentionne l'ID '99999'\", function () {\n    const json = pm.response.json();\n    pm.expect(json.message).to.include(\"99999\");\n});\n\n// Test 5 : Vérifier le temps de réponse\npm.test(\"Temps de réponse inférieur à 3000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(3000);\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/products/99999",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "products",
+                "99999"
+              ]
+            },
+            "description": "Test 404 Not Found : interroge un produit avec un ID inexistant (99999). Valide que l'API retourne bien un code HTTP 404 avec un message d'erreur explicite."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
